@@ -1,5 +1,5 @@
 items = [
-    (6, 4),
+    (6, 4),   #(価値, 容量)
     (12, 8),
     (4, 3),
     (3, 5),
@@ -23,20 +23,20 @@ capacity = 45
 
 n = len(items)
 
-dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+dp = [[0] * (capacity + 1) for _ in range(n + 1)]  #DP表初期値
 
-for i in range(1, n + 1):
-    value, weight = items[i - 1]
+for i in range(1, n + 1):  
+    value, weight = items[i - 1]  #扱っている品物
 
     for w in range(capacity + 1):
 
         if weight > w:
-            dp[i][w] = dp[i - 1][w]
+            dp[i][w] = dp[i - 1][w] #入らない場合，上の行をコピー
 
-        else:
-            dp[i][w] = max(
-                dp[i - 1][w],
-                dp[i - 1][w - weight] + value
+        else:                                   #入る場合，
+            dp[i][w] = max(                  
+                dp[i - 1][w],                     #入れる
+                dp[i - 1][w - weight] + value     #入れない
             )
 
 print(dp[n][capacity])
